@@ -3,7 +3,7 @@ pip install streamlit pandas
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-data = pd.read_csv("C:\Users\고병수\Desktop\부산광역시 동구_장애인일자리 현황_20221024.csv”)
+data = pd.read_csv("부산광역시 동구_장애인일자리 현황_.csv”)
 
 # Streamlit app code
 st.title("Graph App")
