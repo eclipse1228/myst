@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-data = pd.read_csv('job1.csv')
+data = pd.read_csv('job1.csv', encoding='utf-8-sig')
 
 # Streamlit app code
 st.title("Graph App")
