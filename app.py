@@ -33,15 +33,26 @@ def main():
             window = 2  # 이동 평균선의 기간 설정 (예시로 2년)
             assigned_personnel = filtered_data['Assigned Personnel']
 
-            # 이동평균 계산
-            moving_average = assigned_personnel.rolling(window).mean()
+#             # 이동평균 계산
+#             moving_average = assigned_personnel.rolling(window).mean()
 
-            # 이동평균선 그래프 그리기
-            ax.plot(filtered_data['year'], moving_average.shift(-window+1), color='green', linestyle='--', label=f'{window}-Year Moving Average')
+#             # 이동평균선 그래프 그리기
+#             ax.plot(filtered_data['year'], moving_average.shift(-window+1), color='green', linestyle='--', label=f'{window}-year Moving Average')
 
-        # Calculate average and show average line
-        if show_average:
-            average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
+#         # Calculate average and show average line
+#         if show_average:
+#             average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
+
+if show_ma:
+    window = 2  # 이동 평균선의 기간 설정 (예시로 2년)
+    assigned_personnel = filtered_data['Assigned Personnel']
+
+    # 이동평균 계산
+    moving_average = assigned_personnel.rolling(window).mean()
+
+    # 이동평균선 그래프 그리기
+    ax.plot(filtered_data['year'].iloc[window-1:], moving_average, color='green', linestyle='--', label=f'{window}-Year Moving Average')
+
 
             # 평균선 그래프 그리기
             ax.axhline(average_personnel.mean(), color='red', linestyle='--', label='Average')
