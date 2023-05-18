@@ -21,7 +21,7 @@ def main():
         filtered_data.plot(x='year', y='Assigned Personnel', kind='bar', ax=ax)
         plt.xlabel('year')
         plt.ylabel('Assigned Personnel')
-        plt.title(f"Personnel Distribution by Year for {selected_institution_type}")
+        plt.title(f"{selected_institution_type}")
         st.pyplot(fig)
     else:
         st.warning("No data available for the selected filters.")
