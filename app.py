@@ -16,12 +16,9 @@ def main():
     institution_types = df['Institution Type'].unique()
     selected_institution_type = st.sidebar.selectbox("Institution Type", institution_types)
     
-    months = ['1월', '2월', '3월', '4월', '5월']
-    selected_months = st.sidebar.multiselect("Select Months", months)
 
     filtered_data = df[
-        (df['Institution Type'] == selected_institution_type) &
-        (df['월'].isin(selected_months))
+        (df['Institution Type'] == selected_institution_type) 
     ]
     
     # Create chart
