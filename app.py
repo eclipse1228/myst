@@ -38,6 +38,5 @@ def main():
         st.pyplot(fig)
     else:
         st.warning("선택한 필터에 대한 데이터가 없습니다.")
-    if __name__ == '__main__':
-        main()
-        
+if __name__ == '__main__':
+    main()
