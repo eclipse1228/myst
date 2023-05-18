@@ -32,7 +32,7 @@ def main():
     if not filtered_data.empty:
         fig, ax = plt.subplots()
         filtered_data.plot(x='Institution name', y='Number of assigned personnel', kind='bar', ax=ax)
-        plt.xlabel('기관 이름')
+        plt.xlabel('기관명')
         plt.ylabel('배정된 인원 수')
         plt.title(f"{selected_year}년 {selected_month} {selected_institution_type}의 인원 분포")
         st.pyplot(fig)
