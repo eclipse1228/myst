@@ -19,7 +19,7 @@ def main():
     ]
     selected_month = st.sidebar.selectbox("월 선택", months)
 
-    institution_types = df['Institution type'].unique()
+    institution_types = df['기관유형'].unique()
     selected_institution_type = st.sidebar.selectbox("기관 유형 선택", institution_types)
 
     filtered_data = df[
