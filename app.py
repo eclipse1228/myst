@@ -37,14 +37,14 @@ def main():
             moving_average = assigned_personnel.rolling(window).mean()
 
             # 이동평균선 그래프 그리기
-            ax.plot(filtered_data['Assigned Personnel'], moving_average.shift(-window+1), color='green', linestyle='--', label=f'{window}-Year Moving Average')
+            ax.plot(filtered_data['year'], moving_average.shift(-window+1), color='green', linestyle='--', label=f'{window}-Year Moving Average')
 
         # Calculate average and show average line
         if show_average:
             average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
 
             # 평균선 그래프 그리기
-            ax.axhline(average_personnel.mean(), color='red', linestyle='--', label='Average')
+            ax.axhline(average_personnel.mean(), color='red', linestyle='---', label='Average')
 
         plt.legend()
         st.pyplot(fig)
