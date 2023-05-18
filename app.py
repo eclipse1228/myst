@@ -30,7 +30,7 @@ def main():
         # Show average line
         if show_average:
             average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
-            ax.plot(average_personnel, color='red', linestyle='--', label='Average')
+            average_personnel.plot(ax=ax, color='red', linestyle='--', label='Average')
             plt.legend()
 
         st.pyplot(fig)
