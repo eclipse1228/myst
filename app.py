@@ -28,17 +28,17 @@ def main():
         plt.ylabel('Assigned Personnel')
         plt.title(f"Personnel Distribution for {selected_institution_type}")
 
-        # Show average line
-        if show_average:
-            average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
-            ax.axhline(average_personnel.mean(), color='red', linestyle='--', label='Average')
-
-        # Show moving average line
+        # Calculate moving average
         if show_ma:
             window = 2  # 이동 평균선의 기간 설정 (예시로 2년)
             assigned_personnel = filtered_data['Assigned Personnel']
-            moving_average = assigned_personnel.rolling(window + 1).mean().shift(-window)
-            ax.plot(filtered_data['year'].iloc[window:], moving_average.iloc[window:], color='green', linestyle='--', label=f'{window}-Year Moving Average')
+            moving_average = assigned_personnel.rolling(window).mean()
+            ax.plot(filtered_data['year'].iloc[window-1:], moving_average, color='green', linestyle='--', label=f'{window}-Year Moving Average')
+
+        # Calculate average and show average line
+        if show_average:
+            average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
+            ax.axhline(average_personnel.mean(), color='red', linestyle='--', label='Average')
 
         plt.legend()
         st.pyplot(fig)
