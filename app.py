@@ -10,7 +10,7 @@ import matplotlib as mpl
 df = pd.read_csv('job23.csv')
 
 def main():
-    st.title("Busan Jobs for Disabled People")
+    st.title("  Busan Jobs for Disabled People")
     st.sidebar.title("Chart Options")
 
     # Filter options
