@@ -10,7 +10,7 @@ def main():
     st.sidebar.title("Chart Options")
 
     # Filter options
-    institution_types = df['Institution Type'].unique()
+    institution_types = ['시군구', '장애인복지관']
     selected_institution_type = st.sidebar.selectbox("Institution Type", institution_types)
     compare_institutions = st.sidebar.checkbox("Compare Institutions")
 
@@ -30,11 +30,12 @@ def main():
         
         # Comparison graph for two institutions
         else:
-            institution1 = st.sidebar.selectbox("Select Institution 1", filtered_data['기관명'].unique())
-            institution2 = st.sidebar.selectbox("Select Institution 2", filtered_data['기관명'].unique())
+            institutions = filtered_data['기관명'].unique()
+            institution1 = st.sidebar.selectbox("Select Institution 1", institutions)
+            institution2 = st.sidebar.selectbox("Select Institution 2", institutions)
             
-            filtered_data1 = df[(df['Institution Type'] == selected_institution_type) & (df['기관명'] == institution1)]
-            filtered_data2 = df[(df['Institution Type'] == selected_institution_type) & (df['기관명'] == institution2)]
+            filtered_data1 = filtered_data[filtered_data['기관명'] == institution1]
+            filtered_data2 = filtered_data[filtered_data['기관명'] == institution2]
             
             if not filtered_data1.empty and not filtered_data2.empty:
                 fig, ax = plt.subplots()
