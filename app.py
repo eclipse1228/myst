@@ -10,7 +10,7 @@ def main():
     st.sidebar.title("차트 옵션")
 
     # 필터 옵션
-    years = df['Year'].unique()
+    years = df['연도'].unique()
     selected_year = st.sidebar.selectbox("년도 선택", years)
 
     months = [
@@ -23,9 +23,9 @@ def main():
     selected_institution_type = st.sidebar.selectbox("기관 유형 선택", institution_types)
 
     filtered_data = df[
-        (df['Year'] == selected_year) &
-        (df['Month'] == selected_month) &
-        (df['Institution type'] == selected_institution_type)
+        (df['연도'] == selected_year) &
+        (df['월'] == selected_month) &
+        (df['기관유형'] == selected_institution_type)
     ]
 
     # 차트 생성
