@@ -21,7 +21,7 @@ def main():
 
     filtered_data = df[
         (df['연도'] == selected_year) &
-        (df['선택된 월'] == selected_month) &  # Replace 'Month' with 'Jan'
+        (df['1월'] == selected_month) & 
         (df['기관유형'] == selected_institution_type)
     ]
 
