@@ -39,24 +39,17 @@ def main():
             # 이동평균선 그래프 그리기
             ax.plot(filtered_data['year'].iloc[window-1:], moving_average, color='green', linestyle='--', label=f'{window}-Year Moving Average')
 
-# Create chart
-if not filtered_data.empty:
-    fig, ax = plt.subplots()
+        # Calculate average and show average line
+        if show_average:
+            average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
 
-    # Single institution graph
-    filtered_data.plot(x='year', y='Assigned Personnel', kind='bar', ax=ax)
-    plt.xlabel('Year')
-    plt.ylabel('Assigned Personnel')
-    plt.title(f"Personnel Distribution for {selected_institution_type}")
+            # 평균선 그래프 그리기
+            ax.axhline(average_personnel.mean(), color='red', linestyle='--', label='Average')
 
-    # Calculate average and show average line
-    if show_average:
-        average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
+        plt.legend()
+        st.pyplot(fig)
+    else:
+        st.warning("No data available for the selected filters.")
 
-        # 평균선 그래프 그리기
-        ax.axhline(average_personnel.mean(), color='red', linestyle='--', label='Average')
-
-    plt.legend()
-    st.pyplot(fig)
-else:
-    st.warning("No data available for the selected filters.")
+if __name__ == '__main__':
+    main()
