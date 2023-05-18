@@ -28,10 +28,10 @@ def main():
         plt.ylabel('Assigned Personnel')
         plt.title(f"Personnel Distribution for {selected_institution_type}")
 
-        # Calculate moving average
-        if show_ma:
-            window = 2  # 이동 평균선의 기간 설정 (예시로 2년)
-            assigned_personnel = filtered_data['Assigned Personnel']
+#         # Calculate moving average
+#         if show_ma:
+#             window = 2  # 이동 평균선의 기간 설정 (예시로 2년)
+#             assigned_personnel = filtered_data['Assigned Personnel']
 
 #             # 이동평균 계산
 #             moving_average = assigned_personnel.rolling(window).mean()
@@ -55,12 +55,24 @@ if show_ma:
     # 이동평균선 그래프 그리기
     ax.plot(filtered_data['year'].iloc[window-1:], moving_average, color='green', linestyle='--', label=f'{window}-Year Moving Average')
 
+# Create chart
+if not filtered_data.empty:
+    fig, ax = plt.subplots()
 
+    # Single institution graph
+    filtered_data.plot(x='year', y='Assigned Personnel', kind='bar', ax=ax)
+    plt.xlabel('Year')
+    plt.ylabel('Assigned Personnel')
+    plt.title(f"Personnel Distribution for {selected_institution_type}")
 
-plt.legend()
-st.pyplot(fig)
-    else:
-        st.warning("No data available for the selected filters.")
+    # Calculate average and show average line
+    if show_average:
+        average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
 
-if __name__ == '__main__':
-    main()
+        # 평균선 그래프 그리기
+        ax.axhline(average_personnel.mean(), color='red', linestyle='--', label='Average')
+
+    plt.legend()
+    st.pyplot(fig)
+else:
+    st.warning("No data available for the selected filters.")
