@@ -57,8 +57,8 @@ if show_ma:
 
 
 
-        plt.legend()
-        st.pyplot(fig)
+plt.legend()
+st.pyplot(fig)
     else:
         st.warning("No data available for the selected filters.")
 
