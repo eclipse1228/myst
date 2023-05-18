@@ -2,41 +2,39 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 
-# CSV 파일을 Pandas DataFrame으로 로드합니다.
+# Load the CSV file into a Pandas DataFrame
 df = pd.read_csv('job23.csv')
 
 def main():
-    st.title("기관 데이터 차트")
-    st.sidebar.title("차트 옵션")
+    st.title("Institution Data Chart")
+    st.sidebar.title("Chart Options")
 
-    # 필터 옵션
+    # Filter options
     years = df['연도'].unique()
-    selected_year = st.sidebar.selectbox("년도 선택", years)
+    selected_year = st.sidebar.selectbox("Select Year", years)
 
-    months = [
-        '1월', '2월', '3월', '4월', '5월', '6월',
-        '7월', '8월', '9월', '10월', '11월', '12월'
-    ]
-    selected_month = st.sidebar.selectbox("월 선택", months)
+    months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+    selected_month = st.sidebar.selectbox("Select Month", months)
 
     institution_types = df['기관유형'].unique()
-    selected_institution_type = st.sidebar.selectbox("기관 유형 선택", institution_types)
+    selected_institution_type = st.sidebar.selectbox("Select Institution Type", institution_types)
 
     filtered_data = df[
         (df['연도'] == selected_year) &
-        (df['월'] == selected_month) &
+        (df['1월'] == selected_month) &  # Replace 'Month' with 'Jan'
         (df['기관유형'] == selected_institution_type)
     ]
 
-    # 차트 생성
+    # Create chart
     if not filtered_data.empty:
         fig, ax = plt.subplots()
-        filtered_data.plot(x='Institution name', y='Number of assigned personnel', kind='bar', ax=ax)
+        filtered_data.plot(x='Institution Name', y='Assigned Personnel', kind='bar', ax=ax)
         plt.xlabel('기관명')
-        plt.ylabel('배정된 인원 수')
-        plt.title(f"{selected_year}년 {selected_month} {selected_institution_type}의 인원 분포")
+        plt.ylabel('배정인원')
+        plt.title(f"Personnel Distribution of {selected_institution_type} in {selected_month} {selected_year}")
         st.pyplot(fig)
     else:
-        st.warning("선택한 필터에 대한 데이터가 없습니다.")
+        st.warning("No data available for the selected filters.")
+
 if __name__ == '__main__':
     main()
