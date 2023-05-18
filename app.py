@@ -4,10 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 # Load the CSV file into a Pandas DataFrame
 
-import matplotlib.pyplot as plt
-plt.rcParams['font.family'] = 'NanumGothic'
-import matplotlib.font_manager as fm
-fm._rebuild()
+
 
 
 df = pd.read_csv('job23.csv')
