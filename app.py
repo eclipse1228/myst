@@ -30,11 +30,11 @@ def main():
         
         # Comparison graph for two institutions
         else:
-            institution1 = st.sidebar.selectbox("Select Institution 1", filtered_data['Institution Name'].unique())
-            institution2 = st.sidebar.selectbox("Select Institution 2", filtered_data['Institution Name'].unique())
+            institution1 = st.sidebar.selectbox("Select Institution 1", filtered_data['기관명'].unique())
+            institution2 = st.sidebar.selectbox("Select Institution 2", filtered_data['기관명'].unique())
             
-            filtered_data1 = filtered_data[filtered_data['Institution Name'] == institution1]
-            filtered_data2 = filtered_data[filtered_data['Institution Name'] == institution2]
+            filtered_data1 = filtered_data[filtered_data['기관명'] == institution1]
+            filtered_data2 = filtered_data[filtered_data['기관명'] == institution2]
             
             plt.bar(filtered_data1['year'], filtered_data1['Assigned Personnel'], label=institution1)
             plt.bar(filtered_data2['year'], filtered_data2['Assigned Personnel'], label=institution2)
