@@ -20,7 +20,7 @@ def main():
     # Create chart
     if not filtered_data.empty:
         fig, ax = plt.subplots()
-        
+
         # Single institution graph
         filtered_data.plot(x='year', y='Assigned Personnel', kind='bar', ax=ax)
         plt.xlabel('Year')
@@ -31,8 +31,8 @@ def main():
         if show_average:
             average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
             average_personnel.plot(ax=ax, color='red', linestyle='--', label='Average')
-            plt.legend()
 
+        plt.legend()
         st.pyplot(fig)
     else:
         st.warning("No data available for the selected filters.")
