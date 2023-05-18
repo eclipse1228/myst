@@ -6,21 +6,21 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('job23.csv')
 
 def main():
-    st.title("기관 데이터 차트")
+    st.title("Busan Jobs for Disabled People")
     st.sidebar.title("Chart Options")
 
     # Filter options
-    institution_types = df['기관유형'].unique()
-    selected_institution_type = st.sidebar.selectbox("기관유형", institution_types)
+    institution_types = df['Institution Type'].unique()
+    selected_institution_type = st.sidebar.selectbox("Institution Type", institution_types)
 
-    filtered_data = df[df['기관유형'] == selected_institution_type]
+    filtered_data = df[df['Institution Type'] == selected_institution_type]
 
     # Create chart
     if not filtered_data.empty:
         fig, ax = plt.subplots()
-        filtered_data.plot(x='연도', y='배정인원', kind='bar', ax=ax)
-        plt.xlabel('연도')
-        plt.ylabel('배정인원')
+        filtered_data.plot(x='year', y='Assigned Personnel', kind='bar', ax=ax)
+        plt.xlabel('year')
+        plt.ylabel('Assigned Personnel')
         plt.title(f"Personnel Distribution by Year for {selected_institution_type}")
         st.pyplot(fig)
     else:
