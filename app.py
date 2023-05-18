@@ -1,26 +1,8 @@
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
+
 # Load the CSV file into a Pandas DataFrame
-
-
-
-
-df = pd.read_csv('job23.csv')
-
-def main():
-    st.title("Busan Jobs for Disabled People")
-    st.sidebar.title("Chart Options")
-
-    # Filter options
-    institution_types = df['Institutionimport pandas as pd
-import streamlit as st
-import matplotlib.pyplot as plt
-# Load the CSV file into a Pandas DataFrame
-
-
-
-
 df = pd.read_csv('job23.csv')
 
 def main():
@@ -30,38 +12,37 @@ def main():
     # Filter options
     institution_types = df['Institution Type'].unique()
     selected_institution_type = st.sidebar.selectbox("Institution Type", institution_types)
-    
+    compare_institutions = st.sidebar.checkbox("Compare Institutions")
 
-    filtered_data = df[
-        (df['Institution Type'] == selected_institution_type) 
-    ]
-    
+    # Filter data for the selected institution type
+    filtered_data = df[df['Institution Type'] == selected_institution_type]
+
     # Create chart
     if not filtered_data.empty:
         fig, ax = plt.subplots()
-        filtered_data.plot(x='year', y='Assigned Personnel', kind='bar', ax=ax)
-        plt.xlabel('year')
-        plt.ylabel('Assigned Personnel')
-        st.pyplot(fig)
-    else:
-        st.warning("No data available for the selected filters.")
+        
+        # Single institution graph
+        if not compare_institutions:
+            filtered_data.plot(x='year', y='Assigned Personnel', kind='bar', ax=ax)
+            plt.xlabel('Year')
+            plt.ylabel('Assigned Personnel')
+            plt.title(f"Personnel Distribution for {selected_institution_type}")
+        
+        # Comparison graph for two institutions
+        else:
+            institution1 = st.sidebar.selectbox("Select Institution 1", filtered_data['Institution Name'].unique())
+            institution2 = st.sidebar.selectbox("Select Institution 2", filtered_data['Institution Name'].unique())
+            
+            filtered_data1 = filtered_data[filtered_data['Institution Name'] == institution1]
+            filtered_data2 = filtered_data[filtered_data['Institution Name'] == institution2]
+            
+            plt.bar(filtered_data1['year'], filtered_data1['Assigned Personnel'], label=institution1)
+            plt.bar(filtered_data2['year'], filtered_data2['Assigned Personnel'], label=institution2)
+            plt.xlabel('Year')
+            plt.ylabel('Assigned Personnel')
+            plt.title(f"Personnel Comparison for {selected_institution_type}")
+            plt.legend()
 
-if __name__ == '__main__':
-    main()
-on Type'].unique()
-    selected_institution_type = st.sidebar.selectbox("Institution Type", institution_types)
-    
-
-    filtered_data = df[
-        (df['Institution Type'] == selected_institution_type) 
-    ]
-    
-    # Create chart
-    if not filtered_data.empty:
-        fig, ax = plt.subplots()
-        filtered_data.plot(x='year', y='Assigned Personnel', kind='bar', ax=ax)
-        plt.xlabel('year')
-        plt.ylabel('Assigned Personnel')
         st.pyplot(fig)
     else:
         st.warning("No data available for the selected filters.")
