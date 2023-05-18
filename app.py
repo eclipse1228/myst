@@ -3,7 +3,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 # Load the CSV file into a Pandas DataFrame
-df = pd.read_csv('job23.csv', encoding='utf-8')
+df = pd.read_csv('job23.csv')
 
 def main():
     st.title("기관 데이터 차트")
