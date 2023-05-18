@@ -33,7 +33,7 @@ def main():
             window = 2  # 이동 평균선의 기간 설정 (예시로 2년)
             assigned_personnel = filtered_data['Assigned Personnel']
             moving_average = assigned_personnel.rolling(window).mean()
-            ax.plot(filtered_data['year'].iloc[window-1:], moving_average, color='green', linestyle='--', label=f'{window}-Year Moving Average')
+            ax.plot(filtered_data['year'], moving_average.shift(-window+1), color='green', linestyle='--', label=f'{window}-Year Moving Average')
 
         # Calculate average and show average line
         if show_average:
