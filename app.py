@@ -13,7 +13,7 @@ def main():
     st.sidebar.title("Chart Options")
 
     # Filter options
-    institution_types = df['Institutiimport pandas as pd
+    institution_types = df['Institutionimport pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 # Load the CSV file into a Pandas DataFrame
