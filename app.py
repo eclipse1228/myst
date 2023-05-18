@@ -12,26 +12,39 @@ def main():
     # Filter options
     institution_types = df['Institution Type'].unique()
     selected_institution_type = st.sidebar.selectbox("Institution Type", institution_types)
+    compare_institutions = st.sidebar.checkbox("Compare Institutions")
 
+    # Filter data for the selected institution type
     filtered_data = df[df['Institution Type'] == selected_institution_type]
 
-    # Select institutions for comparison
-    institution1 = st.sidebar.selectbox("Select Institution 1", filtered_data['기관명'].unique())
-    institution2 = st.sidebar.selectbox("Select Institution 2", filtered_data['기관명'].unique())
-
-    # Filter data for the selected institutions
-    filtered_data1 = filtered_data[filtered_data['기관명'] == institution1]
-    filtered_data2 = filtered_data[filtered_data['기관명'] == institution2]
-
-    # Create comparison chart
-    if not filtered_data1.empty and not filtered_data2.empty:
+    # Create chart
+    if not filtered_data.empty:
         fig, ax = plt.subplots()
-        ax.bar(filtered_data1['year'], filtered_data1['number of participants assigned'], label=institution1)
-        ax.bar(filtered_data2['year'], filtered_data2['number of participants assigned'], label=institution2)
-        plt.xlabel('Year')
-        plt.ylabel('Assigned Personnel')
-        plt.title(f"Comparison of {institution1} and {institution2} ({selected_institution_type})")
-        plt.legend()
+        
+        # Single institution graph
+        if not compare_institutions:
+            filtered_data.plot(x='year', y='Assigned Personnel', kind='bar', ax=ax)
+            plt.xlabel('Year')
+            plt.ylabel('Assigned Personnel')
+            plt.title(f"Personnel Distribution for {selected_institution_type}")
+        
+        # Comparison graph for two institutions
+        else:
+            institution1 = st.sidebar.selectbox("Select Institution 1", filtered_data['기관명'].unique())
+            institution2 = st.sidebar.selectbox("Select Institution 2", filtered_data['기관명'].unique())
+            
+            filtered_data1 = df[(df['Institution Type'] == selected_institution_type) & (df['기관명'] == institution1)]
+            filtered_data2 = df[(df['Institution Type'] == selected_institution_type) & (df['기관명'] == institution2)]
+            
+            if not filtered_data1.empty and not filtered_data2.empty:
+                fig, ax = plt.subplots()
+                ax.bar(filtered_data1['year'], filtered_data1['Assigned Personnel'], label=institution1)
+                ax.bar(filtered_data2['year'], filtered_data2['Assigned Personnel'], label=institution2)
+                plt.xlabel('Year')
+                plt.ylabel('Assigned Personnel')
+                plt.title(f"Personnel Comparison for {selected_institution_type}")
+                plt.legend()
+            
         st.pyplot(fig)
     else:
         st.warning("No data available for the selected filters.")
