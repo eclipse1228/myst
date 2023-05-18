@@ -1,8 +1,11 @@
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
-
+import matplotlib as mpl
 # Load the CSV file into a Pandas DataFrame
+st.set_option('deprecation.showPyplotGlobalUse', False)
+st.set_option('font.family', 'NanumGothic')
+mpl.rc('font', family='NanumGothic')
 
 df = pd.read_csv('job23.csv', encoding='utf-8-sig')
 
