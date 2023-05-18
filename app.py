@@ -1,3 +1,10 @@
+import pandas as pd
+import streamlit as st
+import matplotlib.pyplot as plt
+
+# Load the CSV file into a Pandas DataFrame
+df = pd.read_csv('job23.csv')
+
 def main():
     st.title("Busan Jobs for Disabled People")
     st.sidebar.title("Chart Options")
@@ -32,17 +39,24 @@ def main():
             # 이동평균선 그래프 그리기
             ax.plot(filtered_data['year'].iloc[window-1:], moving_average, color='green', linestyle='--', label=f'{window}-Year Moving Average')
 
-        # Calculate average and show average line
-        if show_average:
-            average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
+# Create chart
+if not filtered_data.empty:
+    fig, ax = plt.subplots()
 
-            # 평균선 그래프 그리기
-            ax.axhline(average_personnel.mean(), color='red', linestyle='--', label='Average')
+    # Single institution graph
+    filtered_data.plot(x='year', y='Assigned Personnel', kind='bar', ax=ax)
+    plt.xlabel('Year')
+    plt.ylabel('Assigned Personnel')
+    plt.title(f"Personnel Distribution for {selected_institution_type}")
 
-        plt.legend()
-        st.pyplot(fig)
-    else:
-        st.warning("No data available for the selected filters.")
+    # Calculate average and show average line
+    if show_average:
+        average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
 
-if __name__ == '__main__':
-    main()
+        # 평균선 그래프 그리기
+        ax.axhline(average_personnel.mean(), color='red', linestyle='--', label='Average')
+
+    plt.legend()
+    st.pyplot(fig)
+else:
+    st.warning("No data available for the selected filters.")
