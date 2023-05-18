@@ -3,11 +3,16 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 # Load the CSV file into a Pandas DataFrame
-st.set_option('deprecation.showPyplotGlobalUse', False)
-st.set_option('font.family', 'NanumGothic')
-mpl.rc('font', family='NanumGothic')
 
-df = pd.read_csv('job23.csv', encoding='utf-8-sig')
+from matplotlib import font_manager, rc
+# font_path = "C:/Windows/Fonts/NGULIM.TTF"
+# font = font_manager.FontProperties(fname=font_path).get_name()
+# rc('font', family=font)
+
+
+
+
+df = pd.read_csv('job23.csv')
 
 def main():
     st.title("Busan Jobs for Disabled People")
