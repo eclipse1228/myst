@@ -3,7 +3,8 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 # Load the CSV file into a Pandas DataFrame
-df = pd.read_csv('job23.csv')
+
+df = pd.read_csv('job23.csv', encoding='utf-8-sig')
 
 def main():
     st.title("Busan Jobs for Disabled People")
