@@ -13,6 +13,7 @@ def main():
     institution_types = ['시군구', '장애인복지관']
     selected_institution_type = st.sidebar.selectbox("Institution Type", institution_types)
     show_average = st.sidebar.checkbox("Show Average")
+    show_ma = st.sidebar.checkbox("Show Moving Average")
 
     # Filter data for the selected institution type
     filtered_data = df[df['Institution Type'] == selected_institution_type]
@@ -31,6 +32,12 @@ def main():
         if show_average:
             average_personnel = filtered_data.groupby('year')['Assigned Personnel'].mean()
             ax.axhline(average_personnel.mean(), color='red', linestyle='--', label='Average')
+
+        # Show moving average line
+        if show_ma:
+            window = 2  # 이동 평균선의 기간 설정 (예시로 2년)
+            moving_average = filtered_data.groupby('year')['Assigned Personnel'].rolling(window).mean().reset_index(level=0, drop=True)
+            ax.plot(filtered_data['year'], moving_average, color='green', linestyle='--', label=f'{window}-Year Moving Average')
 
         plt.legend()
         st.pyplot(fig)
